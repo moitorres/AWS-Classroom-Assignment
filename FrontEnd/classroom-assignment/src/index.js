@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Status from './Components/Status'
+import {Account} from './Components/Account'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Account>
+      {/* Status to check if the user is authenticated*/}
+      <Status/>
+    </Account>
   </React.StrictMode>,
   document.getElementById('root')
 );
