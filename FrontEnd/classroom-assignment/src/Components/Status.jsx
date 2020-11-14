@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {AccountContext} from './Account'
-import LoginForm from './LoginForm';
+import Login from '../Pages/Login';
 import App from '../App';
 
 export default () => {
@@ -17,7 +17,7 @@ export default () => {
 
     return(
         <div>
-            {status ? <App/> : <LoginForm/>}
+            {status ? <App/> : <Login/>}
         </div>
     );
 }

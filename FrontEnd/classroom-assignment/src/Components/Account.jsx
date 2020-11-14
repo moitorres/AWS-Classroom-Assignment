@@ -42,7 +42,7 @@ const Account = props => {
                 },
 
                 onFailure: err =>{
-                    console.error('onFailure: ', err);
+                    alert(err.message);
                     reject(err);
                 },
 
