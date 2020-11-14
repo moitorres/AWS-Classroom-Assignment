@@ -1,12 +1,11 @@
-import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import NavBar from "./Components/NavBar";
 
+import NavBar from "./Components/NavBar";
 import Home from "./Pages/Home";
 import Reservar from "./Pages/Reservar";
 
 
-function App() {
+export default function App() {
   return (
     <Router>
       <NavBar/>
@@ -22,4 +21,3 @@ function App() {
   );
 }
 
-export default App;

@@ -1,23 +1,36 @@
-import React from "react";
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import React, {useContext} from "react";
+import { Navbar, Nav, Button} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {AccountContext} from "./Account"
 
 import "../App.css"
 
-class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: "Búsqueda",
-    };
-  }
+export default () => {
 
-  searchItem = (params) => {
-    this.setState({
-      search: params.target.value,
-    });
-  };
+    const LogoutButton = () => {
+        const {logout} = useContext(AccountContext);
+        return(
+            <Button variant="outline-light" onClick={logout}>Logout</Button>
+        )
+    }
 
+    return (
+        <Navbar collapseOnSelect expand="lg" className="NavBar-Style" variant="dark">
+          <Navbar.Brand className="NavBar-Title" href="/">ITESM</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="/reservar">Reservar Salón</Nav.Link>
+              <Nav.Link href="/">Ver reservaciones</Nav.Link>
+            </Nav>
+            <LogoutButton/>
+          </Navbar.Collapse>
+        </Navbar>
+      );
+}
+
+
+ 
 
   /*
     Additional nav links for other pages:
@@ -40,19 +53,7 @@ class NavBar extends React.Component {
     </Form>
   */
 
-  render() {
-    return (
-      <Navbar collapseOnSelect expand="lg" className="NavBar-Style" variant="dark">
-        <Navbar.Brand className="NavBar-Title" href="/">ITESM Classroom Application</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="/Agendar">Reservar Salón</Nav.Link>
-            <Nav.Link href="/">Ver reservaciones</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    );
-  }
-}
-export default NavBar;
+  
+  
+
+

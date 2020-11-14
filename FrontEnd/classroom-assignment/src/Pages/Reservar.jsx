@@ -7,7 +7,7 @@ class Reservar extends React.Component {
 
     return (
       <div>
-        
+        <h1>Reservar</h1>
         
       </div>
     );

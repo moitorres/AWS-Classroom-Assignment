@@ -14,7 +14,6 @@ class Login extends React.Component {
       <div>
         <br/>
         <Row>
-            
           <h1 style={{ textAlign:"center", fontFamily:"Verdana",margin:"auto", marginTop:"1rem"}}>Aplicación para la administración de salones</h1>
         </Row>
         <Row>

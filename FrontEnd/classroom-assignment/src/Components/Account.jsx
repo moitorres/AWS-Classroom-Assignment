@@ -38,6 +38,7 @@ const Account = props => {
 
                 onSuccess: data =>{
                     console.log('onSuccess: ', data);
+                    window.location.href = "/"
                     resolve(data);
                 },
 
@@ -52,11 +53,21 @@ const Account = props => {
                 }
             });
         });
+    
+    const logout = () => {
+        const user = Pool.getCurrentUser();
+        if(user){
+            user.signOut();
+            console.log("Signout");
+            window.location.href = "/"
+        }
+    }
 
     return (
         <AccountContext.Provider value={{
             authenticate,
-            getSession
+            getSession,
+            logout
         }}>
             {props.children}
         </AccountContext.Provider>

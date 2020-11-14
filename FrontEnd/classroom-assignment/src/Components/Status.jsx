@@ -15,9 +15,16 @@ export default () => {
         })
     }, []);
 
+    const CheckLogin = () => {
+
+        if(status)
+            return (<App/>)
+        else
+            return(<Login/>)
+    
+    }
+
     return(
-        <div>
-            {status ? <App/> : <Login/>}
-        </div>
+        <CheckLogin></CheckLogin>
     );
 }
