@@ -1,5 +1,6 @@
 import React from "react";
 import '../App.css'
+import ReserverForm from '../Components/ReserveForm'
 
 class Reservar extends React.Component {
 
@@ -7,8 +8,10 @@ class Reservar extends React.Component {
 
     return (
       <div>
-        <h1>Reservar</h1>
-        
+        <br/>
+        <h1 style={{ textAlign: "center",fontFamily:"Verdana"}}>Reservar un salón</h1>
+        <br/>
+        <ReserverForm/>
       </div>
     );
   }
