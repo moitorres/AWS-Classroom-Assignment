@@ -40,3 +40,13 @@
 .NavBar-Style{
   background-color: #253040;
 }
+
+.reservationTitle {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.reservationsListContainer {
+  padding: 48px;
+}
+
