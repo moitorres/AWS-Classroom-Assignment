@@ -38,6 +38,8 @@ const Account = props => {
 
                 onSuccess: data =>{
                     console.log('onSuccess: ', data);
+                    //Save the current user in the local storage
+                    localStorage.setItem('user', user.username);
                     window.location.href = "/"
                     resolve(data);
                 },
