@@ -12,11 +12,42 @@ class AllReservations extends React.Component {
     componentDidMount() {
         this.getNotes();
     }
+      
+    compareRooms( a, b ) {
+        if ( a.room.name < b.room.name ){
+          return -1;
+        }
+        if ( a.room.name > b.room.name ){
+          return 1;
+        }
+        return 0;
+    }
+
+    compareRooms( a, b ) {
+        if ( a.room.name < b.room.name ){
+          return -1;
+        }
+        if ( a.room.name > b.room.name ){
+          return 1;
+        }
+        return 0;
+    }
+
+    compareStartHour( a, b ) {
+        if ( a.startHour < b.startHour ){
+          return -1;
+        }
+        if ( a.startHour > b.startHour ){
+          return 1;
+        }
+        return 0;
+    }
 
   async getNotes() {
     const res = await axios.get('https://ahutrv2eeh.execute-api.us-east-2.amazonaws.com/APP/reservations');
 
-    this.setState({reservations: res.data});
+    await this.setState({reservations: res.data.sort(this.compareStartHour).sort(this.compareRooms)});
+
   }   
 
   render() {
