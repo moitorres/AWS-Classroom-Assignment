@@ -21,7 +21,7 @@ export default () => {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
               <Nav.Link href="/reservar">Reservar Salón</Nav.Link>
-              <Nav.Link href="/">Ver reservaciones</Nav.Link>
+              <Nav.Link href="/misReservaciones">Ver mis reservaciones</Nav.Link>
             </Nav>
             <LogoutButton/>
           </Navbar.Collapse>

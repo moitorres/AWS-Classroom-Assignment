@@ -1,17 +1,17 @@
 import React from "react";
 import '../App.css'
-import AllReservations from "../Components/AllReservations";
+import SpecificReservations from "../Components/SpecificReservations";
 
-class Home extends React.Component {
+class MisReservaciones extends React.Component {
 
   render() {
 
     return (
       <div className="reservationsContainer">
         <h1 className="reservationTitle">Salones Reservados</h1>
-        <AllReservations />
+        <SpecificReservations/>
       </div>
     );
   }
 }
-export default Home;
+export default MisReservaciones;
