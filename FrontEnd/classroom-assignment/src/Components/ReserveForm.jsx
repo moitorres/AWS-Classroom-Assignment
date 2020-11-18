@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Form, Card, Button } from "react-bootstrap";
 import axios from 'axios';
-import Moment from 'react-moment';
 import MomentUtils from '@date-io/moment';
 import {
     MuiPickersUtilsProvider,
@@ -52,23 +51,56 @@ class ReserveForm extends Component {
         event.preventDefault();
         
         //Get data from the state
-        const { email, date, startTime, endTime, salon, motivo } = this.state;
-        //Get user id from the local storage
-        let name = localStorage.getItem('user');
-        console.log(name);
-        console.log("Submit. Email: ", email,", Name: ", name,",Room: ", salon, ", Date: ", date, ", Start-time: ", startTime, ", End-time: ", endTime);
+        const { email, date, startTime, endTime, roomId, motivo } = this.state;
 
-        /*
-        axios.post('/', { email, name, date }).then((result) => {
-            
+        //Get user id from the local storage
+        let personId = localStorage.getItem('user');
+
+        let parsedDate = "";
+        let parsedStartTime = "";
+        let parsedEndTime = "";
+
+        //The program checks if the object is already a "Date" object, if it isn't it transforms it to a date object
+        if(date instanceof Date){
+            //Parse the date to only send the day, month and year
+            parsedDate = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+        }
+        else{
+            //Parse the date to only send the day, month and year
+            parsedDate = date.toDate().getDate() + "-" + (date.toDate().getMonth()+1) + "-" + date.toDate().getFullYear();
+        }
+       
+        console.log(parsedDate);
+
+        if(startTime instanceof Date){
+            //Parse the time to only send the hours and minutes. If the minutes are less than 10, it adds a '0' at the beginning, so the minutes are always two digits
+            parsedStartTime = startTime.getHours() + ":" +  ((startTime.getMinutes()<10?'0':'') + startTime.getMinutes());
+        }
+        else{
+            //Parse the time to only send the hours and minutes. If the minutes are less than 10, it adds a '0' at the beginning, so the minutes are always two digits
+            parsedStartTime = startTime.toDate().getHours() + ":" +  ((startTime.toDate().getMinutes()<10?'0':'') + startTime.toDate().getMinutes());
+        }
+
+        if(endTime instanceof Date){
+            //Parse the time to only send the hours and minutes. If the minutes are less than 10, it adds a '0' at the beginning, so the minutes are always two digits
+            parsedEndTime = endTime.getHours() + ":" +  ((endTime.getMinutes()<10?'0':'') + endTime.getMinutes());
+        }
+        else{
+            //Parse the time to only send the hours and minutes. If the minutes are less than 10, it adds a '0' at the beginning, so the minutes are always two digits
+            parsedEndTime = endTime.toDate().getHours() + ":" +  ((endTime.toDate().getMinutes()<10?'0':'') + endTime.toDate().getMinutes());
+        }
+
+        //Post to the database
+        axios.post('https://ahutrv2eeh.execute-api.us-east-2.amazonaws.com/APP/reservations', { 
+            date: parsedDate, endHour:parsedEndTime, motive: motivo, person: personId, room: roomId, startHour: parsedStartTime, email: email
+        }).then((result) => {
             alert("Reservación hecha exitosamente");
-        }).
-        catch(error =>{
+            window.location.href = "/misReservaciones";
+        }).catch(error =>{
             console.log(error);
             alert("Error en reservación");
             return error;
         });  
-        */
         
     }
 
@@ -79,8 +111,7 @@ class ReserveForm extends Component {
         let roomInfo = await axios.get(url).then((response) => {
             console.log(response.data);
             return response.data;
-          }).
-          catch(error =>{
+          }).catch(error =>{
               console.log(error);
               alert("Error en reservación");
               return error;
@@ -90,7 +121,7 @@ class ReserveForm extends Component {
     }
 
     render(){
-        const { email, name, date, startTime, endTime, salon, motivo } = this.state;
+        const { email, name, date, startTime, endTime, motivo } = this.state;
 
         return(
             <div>
@@ -119,6 +150,17 @@ class ReserveForm extends Component {
                             />
                         </Form.Group>
                         
+                        <Form.Group controlId="formBasicText">
+                            <Form.Label >Motivo</Form.Label>
+                            <Form.Control 
+                                type="text" 
+                                placeholder="Ingresa el motivo de reservación" 
+                                name="motivo"
+                                value={motivo}
+                                onChange={this.onChange}
+                            />
+                        </Form.Group>
+
                         <Form.Group controlId="exampleForm.ControlSelect1">
                             <Form.Label >Salón</Form.Label>
                             <Form.Control 
@@ -142,17 +184,6 @@ class ReserveForm extends Component {
                                     })
                                 }
                             </Form.Control>
-                        </Form.Group>
-
-                        <Form.Group controlId="formBasicText">
-                            <Form.Label >Salón</Form.Label>
-                            <Form.Control 
-                                type="text" 
-                                placeholder="Ingresa el motivo de reservación" 
-                                name="motivo"
-                                value={motivo}
-                                onChange={this.onChange}
-                            />
                         </Form.Group>
 
 
@@ -206,7 +237,7 @@ class ReserveForm extends Component {
                 </Card>
 
                 <br/>
-                {this.state.salon != '' ? (<Room reservations={this.state.roomInfo}/>) : (<br/>)}
+                {this.state.salon !== '' ? (<Room reservations={this.state.roomInfo}/>) : (<br/>)}
 
             </div>
         )

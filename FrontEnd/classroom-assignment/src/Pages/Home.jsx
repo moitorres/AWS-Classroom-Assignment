@@ -8,7 +8,7 @@ class Home extends React.Component {
 
     return (
       <div className="reservationsContainer">
-        <h1 className="reservationTitle">Salones Reservados</h1>
+        <h1 className="reservationTitle">Todas las reservaciones</h1>
         <AllReservations />
       </div>
     );
